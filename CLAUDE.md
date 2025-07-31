@@ -45,10 +45,10 @@ This server is designed to be used with Claude Code via MCP configuration:
 ```json
 {
   "mcpServers": {
-    "components-mcp": {
+    "curriculum-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": ["components-mcp"]
+      "args": ["curriculum-mcp"]
     }
   }
 }

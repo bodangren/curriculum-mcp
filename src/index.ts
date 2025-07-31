@@ -24,7 +24,7 @@ class ComponentsMCPServer {
   constructor() {
     this.server = new Server(
       {
-        name: 'components-mcp',
+        name: 'curriculum-mcp',
         version: '1.1.0',
       },
       {
@@ -49,79 +49,79 @@ class ComponentsMCPServer {
       return {
         resources: [
           {
-            uri: 'components-mcp://units',
+            uri: 'curriculum-mcp://units',
             mimeType: 'application/json',
             name: 'All units',
             description: 'All curriculum units',
           },
           {
-            uri: 'components-mcp://lessons',
+            uri: 'curriculum-mcp://lessons',
             mimeType: 'application/json',
             name: 'All lessons',
             description: 'All curriculum lessons',
           },
           {
-            uri: 'components-mcp://lessonPhases',
+            uri: 'curriculum-mcp://lessonPhases',
             mimeType: 'application/json',
             name: 'All lesson phases',
             description: 'All lesson phases',
           },
           {
-            uri: 'components-mcp://appConnections',
+            uri: 'curriculum-mcp://appConnections',
             mimeType: 'application/json',
             name: 'All app connections',
             description: 'All app connections',
           },
           {
-            uri: 'components-mcp://assessments',
+            uri: 'curriculum-mcp://assessments',
             mimeType: 'application/json',
             name: 'All assessments',
             description: 'All assessments',
           },
           {
-            uri: 'components-mcp://tasks',
+            uri: 'curriculum-mcp://tasks',
             mimeType: 'application/json',
             name: 'All tasks',
             description: 'All tasks',
           },
           {
-            uri: 'components-mcp://components',
+            uri: 'curriculum-mcp://components',
             mimeType: 'application/json',
             name: 'All components',
             description: 'All UI components',
           },
           {
-            uri: 'components-mcp://apis',
+            uri: 'curriculum-mcp://apis',
             mimeType: 'application/json',
             name: 'All APIs',
             description: 'All API endpoints',
           },
           {
-            uri: 'components-mcp://environment',
+            uri: 'curriculum-mcp://environment',
             mimeType: 'application/json',
             name: 'Environment variables',
             description: 'Environment variable documentation',
           },
           {
-            uri: 'components-mcp://style-guide',
+            uri: 'curriculum-mcp://style-guide',
             mimeType: 'application/json',
             name: 'Style guide',
             description: 'Style guide patterns',
           },
           {
-            uri: 'components-mcp://state',
+            uri: 'curriculum-mcp://state',
             mimeType: 'application/json',
             name: 'State management',
             description: 'State management configurations',
           },
           {
-            uri: 'components-mcp://hooks',
+            uri: 'curriculum-mcp://hooks',
             mimeType: 'application/json',
             name: 'Custom hooks',
             description: 'Custom React hooks',
           },
           {
-            uri: 'components-mcp://conventions',
+            uri: 'curriculum-mcp://conventions',
             mimeType: 'application/json',
             name: 'Code conventions',
             description: 'Coding standards and conventions',
@@ -132,7 +132,7 @@ class ComponentsMCPServer {
 
     this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
       const { uri } = request.params;
-      const resourceType = uri.replace('components-mcp://', '');
+      const resourceType = uri.replace('curriculum-mcp://', '');
 
       try {
         const data = this.db.getCollection(resourceType as keyof DatabaseManager['db']);

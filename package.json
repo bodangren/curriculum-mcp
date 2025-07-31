@@ -1,10 +1,10 @@
 {
-  "name": "components-mcp",
+  "name": "curriculum-mcp",
   "version": "1.1.0",
   "description": "A Model Context Protocol (MCP) server for managing online course curriculum, todos, project components, APIs, coding standards, and now, full course curriculums. This server provides tools and resources for Claude Code to interact with your project's knowledge base and educational content.",
   "main": "dist/index.js",
   "bin": {
-    "components-mcp": "dist/index.js"
+    "curriculum-mcp": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bodangren/components-mcp.git"
+    "url": "git+https://github.com/bodangren/curriculum-mcp.git"
   },
   "keywords": [
     "mcp",
@@ -34,9 +34,9 @@
     "node": ">=14"
   },
   "bugs": {
-    "url": "https://github.com/bodangren/components-mcp/issues"
+    "url": "https://github.com/bodangren/curriculum-mcp/issues"
   },
-  "homepage": "https://github.com/bodangren/components-mcp#readme",
+  "homepage": "https://github.com/bodangren/curriculum-mcp#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.0",
     "@types/node": "^24.1.0",

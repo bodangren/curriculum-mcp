@@ -20,13 +20,13 @@ A Model Context Protocol (MCP) server for managing oonline course curriculum, to
 
 ### From npm (when published)
 ```bash
-npm install -g components-mcp
+npm install -g curriculum-mcp
 ```
 
 ### From source
 ```bash
-git clone https://github.com/bodangren/components-mcp.git
-cd components-mcp
+git clone https://github.com/bodangren/curriculum-mcp.git
+cd curriculum-mcp
 npm install
 ```
 
@@ -40,10 +40,10 @@ Add to your Claude Code project settings:
 ```json
 {
   "mcpServers": {
-    "components-mcp": {
+    "curriculum-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": ["components-mcp"]
+      "args": ["curriculum-mcp"]
     }
   }
 }
@@ -51,15 +51,15 @@ Add to your Claude Code project settings:
 
 #### Option 2: Global installation
 ```bash
-npm install -g components-mcp
+npm install -g curriculum-mcp
 ```
 
 ```json
 {
   "mcpServers": {
-    "components-mcp": {
+    "curriculum-mcp": {
       "type": "stdio",
-      "command": "components-mcp"
+      "command": "curriculum-mcp"
     }
   }
 }
@@ -69,10 +69,10 @@ npm install -g components-mcp
 ```json
 {
   "mcpServers": {
-    "components-mcp": {
+    "curriculum-mcp": {
       "type": "stdio",
       "command": "node",
-      "args": ["/path/to/components-mcp/server.js"]
+      "args": ["/path/to/curriculum-mcp/server.js"]
     }
   }
 }
@@ -115,19 +115,19 @@ Once configured, Claude Code will have access to these MCP tools:
 
 Access project data via MCP resources:
 
-- `components-mcp://units` - All units
-- `components-mcp://lessons` - All lessons
-- `components-mcp://lessonPhases` - All lesson phases
-- `components-mcp://appConnections` - All app connections
-- `components-mcp://assessments` - All assessments
-- `components-mcp://tasks` - All tasks
-- `components-mcp://components` - All components
-- `components-mcp://apis` - All APIs
-- `components-mcp://environment` - Environment variables
-- `components-mcp://style-guide` - Style guide patterns
-- `components-mcp://state` - State management
-- `components-mcp://hooks` - Custom hooks
-- `components-mcp://conventions` - Code conventions
+- `curriculum-mcp://units` - All units
+- `curriculum-mcp://lessons` - All lessons
+- `curriculum-mcp://lessonPhases` - All lesson phases
+- `curriculum-mcp://appConnections` - All app connections
+- `curriculum-mcp://assessments` - All assessments
+- `curriculum-mcp://tasks` - All tasks
+- `curriculum-mcp://components` - All components
+- `curriculum-mcp://apis` - All APIs
+- `curriculum-mcp://environment` - Environment variables
+- `curriculum-mcp://style-guide` - Style guide patterns
+- `curriculum-mcp://state` - State management
+- `curriculum-mcp://hooks` - Custom hooks
+- `curriculum-mcp://conventions` - Code conventions
 
 ## Data Models
 
@@ -279,7 +279,7 @@ Once configured, you can interact with the server through Claude Code:
 
 ```
 /mcp
-# Shows available MCP servers including components-mcp
+# Shows available MCP servers including curriculum-mcp
 
 # Claude can now use tools like:
 # - get_courses to list all courses
@@ -354,4 +354,4 @@ bodangren
 
 ## Repository
 
-https://github.com/bodangren/components-mcp
+https://github.com/bodangren/curriculum-mcp
