@@ -1,6 +1,6 @@
 {
   "name": "curriculum-mcp",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A Model Context Protocol (MCP) server for managing online course curriculum, todos, project components, APIs, coding standards, and now, full course curriculums. This server provides tools and resources for Claude Code to interact with your project's knowledge base and educational content.",
   "main": "dist/index.js",
   "bin": {
