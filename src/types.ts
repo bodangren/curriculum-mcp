@@ -119,6 +119,101 @@ export interface Convention {
   description: string;
 }
 
+// Summary types for list operations
+export interface UnitSummary {
+  id: string;
+  title: string;
+  sequence: number;
+  status: string;
+}
+
+export interface LessonSummary {
+  id: string;
+  unitId: string;
+  title: string;
+  sequence: number;
+  status: string;
+}
+
+export interface LessonPhaseSummary {
+  id: string;
+  lessonId: string;
+  phaseName: string;
+  sequence: number;
+}
+
+export interface AppConnectionSummary {
+  id: string;
+  lessonPhaseId: string;
+  type: string;
+  resourceIdentifier: string;
+}
+
+export interface AssessmentSummary {
+  id: string;
+  parentId: string;
+  parentType: string;
+  title: string;
+  type: string;
+}
+
+export interface TaskSummary {
+  id: string;
+  title: string;
+  relatedEntityId: string;
+  relatedEntityType: string;
+  status: string;
+  priority: string;
+}
+
+export interface ComponentSummary {
+  id: string;
+  name: string;
+  description: string;
+  filePath: string;
+}
+
+export interface ApiSummary {
+  id: string;
+  name: string;
+  endpoint: string;
+  method: string;
+  description: string;
+}
+
+export interface EnvironmentVariableSummary {
+  id: string;
+  name: string;
+  description: string;
+  isPublic: boolean;
+}
+
+export interface StyleGuidePatternSummary {
+  id: string;
+  element: string;
+  description: string;
+  className: string;
+}
+
+export interface StateManagementSummary {
+  id: string;
+  library: string;
+  storeDirectory: string;
+}
+
+export interface CustomHookSummary {
+  id: string;
+  name: string;
+  filePath: string;
+  description: string;
+}
+
+export interface ConventionSummary {
+  id: string;
+  rule: string;
+  description: string;
+}
+
 // Database structure
 export interface Database {
   components: Component[];

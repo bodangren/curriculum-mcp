@@ -82,34 +82,41 @@ npm install -g curriculum-mcp
 
 Once configured, Claude Code will have access to these MCP tools:
 
-#### Curriculum
-- `get_units`, `create_unit`, `update_unit`, `delete_unit`
-- `get_lessons`, `create_lesson`, `update_lesson`, `delete_lesson`
-- `get_lesson_phases`, `create_lesson_phase`, `update_lesson_phase`, `delete_lesson_phase`
-- `get_app_connections`, `create_app_connection`, `update_app_connection`, `delete_app_connection`
-- `get_assessments`, `create_assessment`, `update_assessment`, `delete_assessment`
-- `get_tasks`, `create_task`, `update_task`, `delete_task`
+### List vs Get Functions
 
-#### Components
-- `get_components` - List all components or get specific component by ID
+The server provides two types of data retrieval functions:
+
+- **`list_*` functions**: Return summary information (id, name/title, key identifiers) for efficient browsing
+- **`get_*` functions**: Return complete entity details when you need full information
+
+This design allows you to efficiently browse large collections without transferring unnecessary data, then fetch full details only when needed.
+
+#### Curriculum Management (18 tools)
+- **Units**: `list_units`, `get_units`, `create_unit`, `update_unit`, `delete_unit`
+- **Lessons**: `list_lessons`, `get_lessons`, `create_lesson`, `update_lesson`, `delete_lesson`
+- **Lesson Phases**: `list_lesson_phases`, `get_lesson_phases`, `create_lesson_phase`, `update_lesson_phase`, `delete_lesson_phase`
+- **App Connections**: `list_app_connections`, `get_app_connections`, `create_app_connection`, `update_app_connection`, `delete_app_connection`
+- **Assessments**: `list_assessments`, `get_assessments`, `create_assessment`, `update_assessment`, `delete_assessment`
+- **Tasks**: `list_tasks`, `get_tasks`, `create_task`, `update_task`, `delete_task`
+
+#### Component Management (4 tools)
+- `list_components` - List all components with summary information (id, name, description, filePath)
+- `get_components` - Get full component details by ID or list all components
 - `create_component` - Create new component
-- `update_component` - Update existing component
-- `delete_component` - Delete component
+- `update_component`, `delete_component` - Modify existing components
 
-#### APIs
-- `get_apis` - List all APIs or get specific API by ID
+#### API Documentation (4 tools)
+- `list_apis` - List all APIs with summary information (id, name, endpoint, method, description)
+- `get_apis` - Get full API details by ID or list all APIs
 - `create_api` - Create new API endpoint
-- `update_api` - Update existing API
-- `delete_api` - Delete API
+- `update_api`, `delete_api` - Modify existing APIs
 
-#### Other Tools
-- `get_environment` - Manage environment variables
-- `create_environment` - Create environment variable
-- `get_style_guide` - Manage style guide patterns
-- `create_style_guide` - Create style guide pattern
-- `get_state` - Get state management configurations
-- `get_hooks` - Get custom hooks
-- `get_conventions` - Get coding conventions
+#### Other Tools (17 tools)
+- **Environment**: `list_environment`, `get_environment`, `create_environment`
+- **Style Guide**: `list_style_guide`, `get_style_guide`, `create_style_guide`
+- **State Management**: `list_state`, `get_state`
+- **Custom Hooks**: `list_hooks`, `get_hooks`
+- **Code Conventions**: `list_conventions`, `get_conventions`
 
 ### Available Resources
 
@@ -282,11 +289,15 @@ Once configured, you can interact with the server through Claude Code:
 # Shows available MCP servers including curriculum-mcp
 
 # Claude can now use tools like:
-# - get_courses to list all courses
+# - list_units to browse all units with summary info
+# - get_units to get full unit details
+# - list_lessons to browse lessons (optionally filtered by unitId)
 # - create_lesson to add a new lesson
-# - get_components to list all components
+# - list_components to browse all components
+# - get_components to get full component details
 # - create_component to add new components
-# - get_apis to see API documentation
+# - list_apis to browse API endpoints
+# - get_apis to see full API documentation
 # - create_style_guide to document design patterns
 ```
 
@@ -330,7 +341,7 @@ npm run build
 This server implements the MCP specification:
 
 - **Transport**: stdio (standard input/output)
-- **Tools**: 30+ tools for CRUD operations
+- **Tools**: 43 tools total (30 CRUD operations + 13 list functions)
 - **Resources**: 14 resource endpoints for data access
 - **Error Handling**: Proper MCP error responses
 - **Type Safety**: Full TypeScript support

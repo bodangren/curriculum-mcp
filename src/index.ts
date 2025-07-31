@@ -14,7 +14,11 @@ import { DatabaseManager } from './database.js';
 import {
   Unit, Lesson, LessonPhase, AppConnection, Assessment, Task,
   Component, Api, EnvironmentVariable, StyleGuidePattern,
-  StateManagement, CustomHook, Convention
+  StateManagement, CustomHook, Convention,
+  UnitSummary, LessonSummary, LessonPhaseSummary, AppConnectionSummary,
+  AssessmentSummary, TaskSummary, ComponentSummary, ApiSummary,
+  EnvironmentVariableSummary, StyleGuidePatternSummary, StateManagementSummary,
+  CustomHookSummary, ConventionSummary
 } from './types.js';
 
 class ComponentsMCPServer {
@@ -157,6 +161,14 @@ class ComponentsMCPServer {
         tools: [
           // Unit tools
           {
+            name: 'list_units',
+            description: 'List all units with summary information (id, title, sequence, status)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
+          {
             name: 'get_units',
             description: 'Get all units or a specific unit by ID',
             inputSchema: {
@@ -211,6 +223,16 @@ class ComponentsMCPServer {
             },
           },
           // Lesson tools
+          {
+            name: 'list_lessons',
+            description: 'List all lessons with summary information (id, unitId, title, sequence, status)',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                unitId: { type: 'string', description: 'Optional unit ID to filter lessons' },
+              },
+            },
+          },
           {
             name: 'get_lessons',
             description: 'Get all lessons or a specific lesson by ID',
@@ -276,6 +298,16 @@ class ComponentsMCPServer {
           },
           // Lesson Phase tools
           {
+            name: 'list_lesson_phases',
+            description: 'List all lesson phases with summary information (id, lessonId, phaseName, sequence)',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                lessonId: { type: 'string', description: 'Optional lesson ID to filter phases' },
+              },
+            },
+          },
+          {
             name: 'get_lesson_phases',
             description: 'Get all lesson phases or a specific lesson phase by ID',
             inputSchema: {
@@ -330,6 +362,16 @@ class ComponentsMCPServer {
           },
           // App Connection tools
           {
+            name: 'list_app_connections',
+            description: 'List all app connections with summary information (id, lessonPhaseId, type, resourceIdentifier)',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                lessonPhaseId: { type: 'string', description: 'Optional lesson phase ID to filter connections' },
+              },
+            },
+          },
+          {
             name: 'get_app_connections',
             description: 'Get all app connections or a specific app connection by ID',
             inputSchema: {
@@ -381,6 +423,17 @@ class ComponentsMCPServer {
             },
           },
           // Assessment tools
+          {
+            name: 'list_assessments',
+            description: 'List all assessments with summary information (id, parentId, parentType, title, type)',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                parentId: { type: 'string', description: 'Optional parent ID to filter assessments' },
+                parentType: { type: 'string', enum: ['Lesson', 'Unit'], description: 'Optional parent type to filter assessments' },
+              },
+            },
+          },
           {
             name: 'get_assessments',
             description: 'Get all assessments or a specific assessment by ID',
@@ -440,6 +493,18 @@ class ComponentsMCPServer {
             },
           },
           // Task tools
+          {
+            name: 'list_tasks',
+            description: 'List all tasks with summary information (id, title, relatedEntityId, relatedEntityType, status, priority)',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                relatedEntityId: { type: 'string', description: 'Optional related entity ID to filter tasks' },
+                relatedEntityType: { type: 'string', enum: ['Unit', 'Lesson', 'LessonPhase', 'Assessment'], description: 'Optional related entity type to filter tasks' },
+                status: { type: 'string', enum: ['Todo', 'In Progress', 'Blocked', 'In Review', 'Done'], description: 'Optional status to filter tasks' },
+              },
+            },
+          },
           {
             name: 'get_tasks',
             description: 'Get all tasks or a specific task by ID',
@@ -503,6 +568,14 @@ class ComponentsMCPServer {
           },
           // Component tools
           {
+            name: 'list_components',
+            description: 'List all components with summary information (id, name, description, filePath)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
+          {
             name: 'get_components',
             description: 'Get all components or a specific component by ID',
             inputSchema: {
@@ -553,6 +626,14 @@ class ComponentsMCPServer {
             },
           },
           // API tools
+          {
+            name: 'list_apis',
+            description: 'List all APIs with summary information (id, name, endpoint, method, description)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
           {
             name: 'get_apis',
             description: 'Get all APIs or a specific API by ID',
@@ -609,6 +690,14 @@ class ComponentsMCPServer {
           },
           // Environment tools
           {
+            name: 'list_environment',
+            description: 'List all environment variables with summary information (id, name, description, isPublic)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
+          {
             name: 'get_environment',
             description: 'Get all environment variables or a specific one by ID',
             inputSchema: {
@@ -632,6 +721,14 @@ class ComponentsMCPServer {
             },
           },
           // Style Guide tools
+          {
+            name: 'list_style_guide',
+            description: 'List all style guide patterns with summary information (id, element, description, className)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
           {
             name: 'get_style_guide',
             description: 'Get all style guide patterns or a specific one by ID',
@@ -658,6 +755,14 @@ class ComponentsMCPServer {
           },
           // State Management tools
           {
+            name: 'list_state',
+            description: 'List all state management configurations with summary information (id, library, storeDirectory)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
+          {
             name: 'get_state',
             description: 'Get all state management configurations or a specific one by ID',
             inputSchema: {
@@ -669,6 +774,14 @@ class ComponentsMCPServer {
           },
           // Custom Hooks tools
           {
+            name: 'list_hooks',
+            description: 'List all custom hooks with summary information (id, name, filePath, description)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
+          {
             name: 'get_hooks',
             description: 'Get all custom hooks or a specific one by ID',
             inputSchema: {
@@ -679,6 +792,14 @@ class ComponentsMCPServer {
             },
           },
           // Conventions tools
+          {
+            name: 'list_conventions',
+            description: 'List all code conventions with summary information (id, rule, description)',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
           {
             name: 'get_conventions',
             description: 'Get all code conventions or a specific one by ID',
@@ -699,6 +820,8 @@ class ComponentsMCPServer {
       try {
         switch (name) {
           // Unit operations
+          case 'list_units':
+            return this.handleListUnits(args);
           case 'get_units':
             return this.handleGetUnits(args);
           case 'create_unit':
@@ -709,6 +832,8 @@ class ComponentsMCPServer {
             return this.handleDeleteUnit(args);
 
           // Lesson operations
+          case 'list_lessons':
+            return this.handleListLessons(args);
           case 'get_lessons':
             return this.handleGetLessons(args);
           case 'create_lesson':
@@ -719,6 +844,8 @@ class ComponentsMCPServer {
             return this.handleDeleteLesson(args);
 
           // Lesson Phase operations
+          case 'list_lesson_phases':
+            return this.handleListLessonPhases(args);
           case 'get_lesson_phases':
             return this.handleGetLessonPhases(args);
           case 'create_lesson_phase':
@@ -729,6 +856,8 @@ class ComponentsMCPServer {
             return this.handleDeleteLessonPhase(args);
 
           // App Connection operations
+          case 'list_app_connections':
+            return this.handleListAppConnections(args);
           case 'get_app_connections':
             return this.handleGetAppConnections(args);
           case 'create_app_connection':
@@ -739,6 +868,8 @@ class ComponentsMCPServer {
             return this.handleDeleteAppConnection(args);
 
           // Assessment operations
+          case 'list_assessments':
+            return this.handleListAssessments(args);
           case 'get_assessments':
             return this.handleGetAssessments(args);
           case 'create_assessment':
@@ -749,6 +880,8 @@ class ComponentsMCPServer {
             return this.handleDeleteAssessment(args);
 
           // Task operations
+          case 'list_tasks':
+            return this.handleListTasks(args);
           case 'get_tasks':
             return this.handleGetTasks(args);
           case 'create_task':
@@ -759,6 +892,8 @@ class ComponentsMCPServer {
             return this.handleDeleteTask(args);
 
           // Component operations
+          case 'list_components':
+            return this.handleListComponents(args);
           case 'get_components':
             return this.handleGetComponents(args);
           case 'create_component':
@@ -769,6 +904,8 @@ class ComponentsMCPServer {
             return this.handleDeleteComponent(args);
 
           // API operations
+          case 'list_apis':
+            return this.handleListApis(args);
           case 'get_apis':
             return this.handleGetApis(args);
           case 'create_api':
@@ -779,26 +916,36 @@ class ComponentsMCPServer {
             return this.handleDeleteApi(args);
 
           // Environment operations
+          case 'list_environment':
+            return this.handleListEnvironment(args);
           case 'get_environment':
             return this.handleGetEnvironment(args);
           case 'create_environment':
             return this.handleCreateEnvironment(args);
 
           // Style Guide operations
+          case 'list_style_guide':
+            return this.handleListStyleGuide(args);
           case 'get_style_guide':
             return this.handleGetStyleGuide(args);
           case 'create_style_guide':
             return this.handleCreateStyleGuide(args);
 
           // State Management operations
+          case 'list_state':
+            return this.handleListState(args);
           case 'get_state':
             return this.handleGetState(args);
 
           // Custom Hooks operations
+          case 'list_hooks':
+            return this.handleListHooks(args);
           case 'get_hooks':
             return this.handleGetHooks(args);
 
           // Conventions operations
+          case 'list_conventions':
+            return this.handleListConventions(args);
           case 'get_conventions':
             return this.handleGetConventions(args);
 
@@ -812,6 +959,19 @@ class ComponentsMCPServer {
   }
 
   // Unit handlers
+  private async handleListUnits(args: any) {
+    const units = this.db.getCollection<Unit>('units');
+    const summaries: UnitSummary[] = units.map(unit => ({
+      id: unit.id,
+      title: unit.title,
+      sequence: unit.sequence,
+      status: unit.status,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetUnits(args: any) {
     if (args.id) {
       const unit = this.db.findById<Unit>('units', args.id);
@@ -858,6 +1018,26 @@ class ComponentsMCPServer {
   }
 
   // Lesson handlers
+  private async handleListLessons(args: any) {
+    let lessons = this.db.getCollection<Lesson>('lessons');
+    
+    if (args.unitId) {
+      lessons = lessons.filter(lesson => lesson.unitId === args.unitId);
+    }
+    
+    const summaries: LessonSummary[] = lessons.map(lesson => ({
+      id: lesson.id,
+      unitId: lesson.unitId,
+      title: lesson.title,
+      sequence: lesson.sequence,
+      status: lesson.status,
+    }));
+    
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetLessons(args: any) {
     let lessons = this.db.getCollection<Lesson>('lessons');
     
@@ -910,6 +1090,25 @@ class ComponentsMCPServer {
   }
 
   // Lesson Phase handlers
+  private async handleListLessonPhases(args: any) {
+    let lessonPhases = this.db.getCollection<LessonPhase>('lessonPhases');
+    
+    if (args.lessonId) {
+      lessonPhases = lessonPhases.filter(phase => phase.lessonId === args.lessonId);
+    }
+    
+    const summaries: LessonPhaseSummary[] = lessonPhases.map(phase => ({
+      id: phase.id,
+      lessonId: phase.lessonId,
+      phaseName: phase.phaseName,
+      sequence: phase.sequence,
+    }));
+    
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetLessonPhases(args: any) {
     let lessonPhases = this.db.getCollection<LessonPhase>('lessonPhases');
     
@@ -962,6 +1161,25 @@ class ComponentsMCPServer {
   }
 
   // App Connection handlers
+  private async handleListAppConnections(args: any) {
+    let appConnections = this.db.getCollection<AppConnection>('appConnections');
+    
+    if (args.lessonPhaseId) {
+      appConnections = appConnections.filter(conn => conn.lessonPhaseId === args.lessonPhaseId);
+    }
+    
+    const summaries: AppConnectionSummary[] = appConnections.map(conn => ({
+      id: conn.id,
+      lessonPhaseId: conn.lessonPhaseId,
+      type: conn.type,
+      resourceIdentifier: conn.resourceIdentifier,
+    }));
+    
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetAppConnections(args: any) {
     let appConnections = this.db.getCollection<AppConnection>('appConnections');
     
@@ -1014,6 +1232,32 @@ class ComponentsMCPServer {
   }
 
   // Assessment handlers
+  private async handleListAssessments(args: any) {
+    let assessments = this.db.getCollection<Assessment>('assessments');
+    
+    if (args.parentId && args.parentType) {
+      assessments = assessments.filter(assessment => 
+        assessment.parentId === args.parentId && assessment.parentType === args.parentType
+      );
+    } else if (args.parentId) {
+      assessments = assessments.filter(assessment => assessment.parentId === args.parentId);
+    } else if (args.parentType) {
+      assessments = assessments.filter(assessment => assessment.parentType === args.parentType);
+    }
+    
+    const summaries: AssessmentSummary[] = assessments.map(assessment => ({
+      id: assessment.id,
+      parentId: assessment.parentId,
+      parentType: assessment.parentType,
+      title: assessment.title,
+      type: assessment.type,
+    }));
+    
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetAssessments(args: any) {
     let assessments = this.db.getCollection<Assessment>('assessments');
     
@@ -1072,6 +1316,37 @@ class ComponentsMCPServer {
   }
 
   // Task handlers
+  private async handleListTasks(args: any) {
+    let tasks = this.db.getCollection<Task>('tasks');
+    
+    if (args.relatedEntityId && args.relatedEntityType) {
+      tasks = tasks.filter(task => 
+        task.relatedEntityId === args.relatedEntityId && task.relatedEntityType === args.relatedEntityType
+      );
+    } else if (args.relatedEntityId) {
+      tasks = tasks.filter(task => task.relatedEntityId === args.relatedEntityId);
+    } else if (args.relatedEntityType) {
+      tasks = tasks.filter(task => task.relatedEntityType === args.relatedEntityType);
+    }
+    
+    if (args.status) {
+      tasks = tasks.filter(task => task.status === args.status);
+    }
+    
+    const summaries: TaskSummary[] = tasks.map(task => ({
+      id: task.id,
+      title: task.title,
+      relatedEntityId: task.relatedEntityId,
+      relatedEntityType: task.relatedEntityType,
+      status: task.status,
+      priority: task.priority,
+    }));
+    
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetTasks(args: any) {
     let tasks = this.db.getCollection<Task>('tasks');
     
@@ -1134,6 +1409,19 @@ class ComponentsMCPServer {
   }
 
   // Component handlers
+  private async handleListComponents(args: any) {
+    const components = this.db.getCollection<Component>('components');
+    const summaries: ComponentSummary[] = components.map(component => ({
+      id: component.id,
+      name: component.name,
+      description: component.description,
+      filePath: component.filePath,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetComponents(args: any) {
     if (args.id) {
       const component = this.db.findById<Component>('components', args.id);
@@ -1180,6 +1468,20 @@ class ComponentsMCPServer {
   }
 
   // API handlers
+  private async handleListApis(args: any) {
+    const apis = this.db.getCollection<Api>('apis');
+    const summaries: ApiSummary[] = apis.map(api => ({
+      id: api.id,
+      name: api.name,
+      endpoint: api.endpoint,
+      method: api.method,
+      description: api.description,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetApis(args: any) {
     if (args.id) {
       const api = this.db.findById<Api>('apis', args.id);
@@ -1226,6 +1528,19 @@ class ComponentsMCPServer {
   }
 
   // Environment handlers
+  private async handleListEnvironment(args: any) {
+    const envVars = this.db.getCollection<EnvironmentVariable>('environment');
+    const summaries: EnvironmentVariableSummary[] = envVars.map(envVar => ({
+      id: envVar.id,
+      name: envVar.name,
+      description: envVar.description,
+      isPublic: envVar.isPublic,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetEnvironment(args: any) {
     if (args.id) {
       const envVar = this.db.findById<EnvironmentVariable>('environment', args.id);
@@ -1251,6 +1566,19 @@ class ComponentsMCPServer {
   }
 
   // Style Guide handlers
+  private async handleListStyleGuide(args: any) {
+    const patterns = this.db.getCollection<StyleGuidePattern>('style-guide');
+    const summaries: StyleGuidePatternSummary[] = patterns.map(pattern => ({
+      id: pattern.id,
+      element: pattern.element,
+      description: pattern.description,
+      className: pattern.className,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetStyleGuide(args: any) {
     if (args.id) {
       const pattern = this.db.findById<StyleGuidePattern>('style-guide', args.id);
@@ -1276,6 +1604,18 @@ class ComponentsMCPServer {
   }
 
   // State Management handlers
+  private async handleListState(args: any) {
+    const states = this.db.getCollection<StateManagement>('state');
+    const summaries: StateManagementSummary[] = states.map(state => ({
+      id: state.id,
+      library: state.library,
+      storeDirectory: state.storeDirectory,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetState(args: any) {
     if (args.id) {
       const state = this.db.findById<StateManagement>('state', args.id);
@@ -1290,6 +1630,19 @@ class ComponentsMCPServer {
   }
 
   // Custom Hooks handlers
+  private async handleListHooks(args: any) {
+    const hooks = this.db.getCollection<CustomHook>('hooks');
+    const summaries: CustomHookSummary[] = hooks.map(hook => ({
+      id: hook.id,
+      name: hook.name,
+      filePath: hook.filePath,
+      description: hook.description,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetHooks(args: any) {
     if (args.id) {
       const hook = this.db.findById<CustomHook>('hooks', args.id);
@@ -1304,6 +1657,18 @@ class ComponentsMCPServer {
   }
 
   // Conventions handlers
+  private async handleListConventions(args: any) {
+    const conventions = this.db.getCollection<Convention>('conventions');
+    const summaries: ConventionSummary[] = conventions.map(convention => ({
+      id: convention.id,
+      rule: convention.rule,
+      description: convention.description,
+    }));
+    return {
+      content: [{ type: 'text', text: JSON.stringify(summaries, null, 2) }],
+    };
+  }
+
   private async handleGetConventions(args: any) {
     if (args.id) {
       const convention = this.db.findById<Convention>('conventions', args.id);
